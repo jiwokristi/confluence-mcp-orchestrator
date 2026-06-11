@@ -18,12 +18,9 @@ confluence-mcp-orchestrator/ (Root)
 │   ├── po_prompt.md             <-- Domain instructions for the Product Owner (PO) Agent
 │   └── sad_prompt.md            <-- Domain instructions for the System Architect & Designer (SAD) Agent
 │
-└── mcp-server/                  <-- Source code for the Confluence MCP integration
-    ├── package.json             <-- Project metadata & node dependencies
-    ├── tsconfig.json            <-- TypeScript build configuration
-    └── src/
-        ├── index.ts             <-- Core MCP Server tool register and request router
-        └── confluence.ts        <-- Confluence REST API wrapper client
+└── mcp-server/                  <-- Python-based mcp-atlassian server (managed by uv)
+    ├── pyproject.toml           <-- Project metadata & Python dependencies
+    └── src/                     <-- Core Python integration scripts
 ```
 
 ---
@@ -39,9 +36,8 @@ confluence-mcp-orchestrator/ (Root)
 - **`po_prompt.md`**: The system instruction specifically for the Product Owner Agent. Outlines how to parse a Confluence-styled BRD and turn it into a premium PRD.
 - **`sad_prompt.md`**: The system instruction specifically for the SAD Agent. Outlines how to model relational data, design RESTful endpoint contracts, and draw valid Mermaid flows.
 
-### 3. `/mcp-server/` (Tool Integration Layer)
-- **`src/index.ts`**: Expresses the available MCP tools to Antigravity. Any modifications to tools must occur here.
-- **`src/confluence.ts`**: Implements the HTTP wrapper targeting Atlassian Confluence's V2 Storage REST API.
+### 3. `.gemini/config.json` (Tool Integration Layer)
+- Configures the `mcp-atlassian` server via `uvx` and the `@drawio/mcp` server via `npx` so the agent has direct access to Confluence and Draw.io architecture tools.
 
 ---
 
@@ -49,10 +45,9 @@ confluence-mcp-orchestrator/ (Root)
 
 To ensure predictable and flawless execution, all subagents must adhere to the following directives:
 
-1. **Read-Only Codebase Principle**: Worker agents (PO, SAD) do NOT write or modify code inside `/mcp-server/`. They only execute MCP tools exposed to them.
-2. **Directory Isolation**: Worker agents should not create temporary files outside their designated conversation scratchpads or `/mcp-server/build/` directory.
-3. **Mermaid Block Strictness**: 
-   - Never output markdown headers or bold text inside Mermaid syntax.
-   - Use double quotes for labels containing parentheses, brackets, or punctuation.
-   - Always verify that the Mermaid flow maps precisely to the generated text content.
+1. **Read-Only Codebase Principle**: Worker agents (PO, SAD) do NOT write or modify code inside the external MCP packages (`mcp-atlassian`, `drawio-mcp`). They only execute the tools exposed by them.
+2. **Directory Isolation**: Worker agents should not create temporary files outside their designated conversation scratchpads or workspace.
+3. **Mermaid & Draw.io Diagram Strictness**: 
+   - When generating Mermaid blocks, never output markdown headers or bold text inside Mermaid syntax, use double quotes for labels containing punctuation, and verify flow mappings.
+   - When generating draw.io structures or utilizing the Draw.io MCP server, follow standard graph XML/CSV or draw.io API semantics.
 4. **Data Privacy Protection**: Never hardcode credentials, access tokens, space keys, or private emails in any source file or generated artifact.

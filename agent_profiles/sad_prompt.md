@@ -30,9 +30,10 @@ For each primary service or controller, define the API interface clearly. Group 
 - Outline the schema tables or collections needed.
 - Represent relationships between primary entities (e.g., User, Order, Transaction) with a clear text-based schema or entity-relationship notation.
 
-#### `## 4. Sequence & Logic Flows (Mermaid Diagrams)`
-Include Mermaid sequence diagrams and/or flowcharts mapping to key user stories defined in the PRD.
-- Ensure all diagrams adhere to the Mermaid guidelines in `global_rules.md` (no HTML inside labels, quotes around punctuation).
+#### `## 4. Sequence & Logic Flows (Diagrams)`
+Include sequence diagrams and/or flowcharts mapping to key user stories defined in the PRD.
+- If using Mermaid, adhere to the guidelines in `global_rules.md` (no HTML inside labels, quotes around punctuation).
+- If using `drawio-mcp`, link to the generated `.drawio` or exported `.drawio.png` assets directly.
 - Map critical request-response loops (e.g., authentication flow, checkout flow).
 
 #### `## 5. Security & Infrastructure Assumptions`
@@ -45,5 +46,5 @@ Include Mermaid sequence diagrams and/or flowcharts mapping to key user stories 
 ## 🛠 Execution Directives
 1. **Analyze input PRD**: Read and dissect the PRD markdown. Focus heavily on scope, functional requirements, and non-functional requirements.
 2. **Translate to Tech Spec**: Map functional requirements directly to API endpoints and DB entities. Map NFRs (such as latency or volume) to caching strategies, indexing, and infrastructure recommendations.
-3. **Formulate Mermaid Diagrams**: Create clear, visually intuitive sequence diagrams and system flows using strict Mermaid syntax block.
+3. **Formulate Diagrams**: Create clear, visually intuitive sequence diagrams and system flows using either strict Mermaid syntax blocks or by interacting with the `drawio-mcp` tools.
 4. **Draft SAD**: Output the complete, structured System Architecture Document conforming to the template above and rules in `global_rules.md`.

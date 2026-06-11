@@ -19,7 +19,10 @@ This file defines the foundational behavior, formatting standards, and structura
 - Ensure a logical hierarchy starting with a single `#` Title on the page, followed by `##` for sections and `###` for sub-sections.
 - Bullet points must be concise, descriptive, and avoid unnecessary wordiness.
 
-### Mermaid Diagram Rules
+### Diagram Rules (Mermaid & Draw.io)
+You may be required to generate visual architectures. Ensure adherence to the following tools:
+
+**Mermaid Strictness:**
 To prevent rendering errors, all generated Mermaid diagrams must strictly follow these syntax rules:
 - **No HTML inside labels**: Never use HTML tags like `<br>`, `<b>`, or `<i>` in node labels.
 - **Special Characters**: Always wrap node text in double quotes if it contains brackets, braces, parentheses, colons, or punctuation.
@@ -27,6 +30,9 @@ To prevent rendering errors, all generated Mermaid diagrams must strictly follow
   - *Incorrect*: `A[Fetch Data (GET /users)]`
 - **Direction**: For flowcharts, specify direction clearly (e.g., `graph TD` or `graph LR`).
 - **Valid Connections**: Do not link nodes through invalid identifiers. Ensure every node has a clear ID.
+
+**Draw.io Usage:**
+If utilizing the `drawio-mcp` tools, you can create and edit `.drawio` (XML), `.csv` (drawio CSV), or `.drawio.svg` diagrams directly. Follow the tool instructions and use the provided templates or CSV formats precisely.
 
 ---
 
